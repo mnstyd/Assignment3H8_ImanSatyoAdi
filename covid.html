@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    table, th, td {
+      border: 1px solid black;
+      border-collapse: collapse;
+    }
+    th, td {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Data Covid-19 Indonesia</h1>
+    <p>Positif: </p>
+    <p>Sembuh: </p>
+    <p>Meninggal: </p>
+  <table>
+    <thead>
+      <tr>
+        <th>Provinsi</th>
+        <th>Positif</th>
+        <th>Sembuh</th>
+        <th>Meninggal</th>
+      </tr>
+    </thead>
+    <tbody id="target-table-body"></tbody>
+  </table>
+  <script>
+    fetch('https://indonesia-covid-19.mathdro.id/api/provinsi')
+    .then(function(response){
+      return response.json()
+    })
+    .then(function(res){
+      console.log(res)
+      res.data.forEach((tempat,idx) => {
+        document.getElementById('target-table-body').innerHTML += `
+          <tr>
+            <td>${tempat.provinsi}</td>
+            <td>${tempat.kasusPosi}</td>
+            <td>${tempat.kasusSemb}</td>
+            <td>${tempat.kasusMeni}</td>
+          </tr>
+        `
+      });
+
+    //   for (let i = 0; i < data.results.length; i++) {
+    //     document.getElementById('target-table-body').innerHTML += `
+    //       <tr>
+    //         <td>${data.results[i].provinsi}</td>
+    //         <td>${data.results[i].kasusPosi}</td>
+    //         <td>${data.results[i].kasusSemb}</td>
+    //         <td>${data.results[i].kasusMeni}</td>
+    //       </tr>
+    //     `
+    //   }
+
+    //   for (let i = 0; i < data.results.length; i++) {
+    //     var tr = document.createElement('tr')
+    //     var td1 = document.createElement('td')
+    //     var text1 = document.createTextNode(data.results[i].provinsi)
+    //     td1.append(text1)
+    //     var td2 = document.createElement('td')
+    //     var text2 = document.createTextNode(data.results[i].kasusPosi)
+    //     td2.append(text2)
+    //     var td3 = document.createElement('td')
+    //     var text3 = document.createTextNode(data.results[i].kasusSemb)
+    //     td3.append(text3)
+    //     var td4 = document.createElement('td')
+    //     var text4 = document.createTextNode(data.results[i].kasusMeni)
+    //     td4.append(text4)
+    //     tr.append(td1)
+    //     tr.append(td2)
+    //     tr.append(td3)
+    //     tr.append(td4)
+    //     document.getElementById('target-table-body').append(tr) 
+    //   }
+    })
+    .catch(function(error){
+      console.log(error)
+    })
+  </script>
+</body>
+</html>
